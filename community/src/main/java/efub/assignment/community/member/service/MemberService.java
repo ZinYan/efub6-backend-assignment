@@ -2,6 +2,7 @@ package efub.assignment.community.member.service;
 
 import efub.assignment.community.member.domain.Member;
 import efub.assignment.community.member.dto.request.CreateMemberRequestDto;
+import efub.assignment.community.member.dto.request.NicknameUpdateRequestDto;
 import efub.assignment.community.member.dto.response.CreateMemberResponseDto;
 import efub.assignment.community.member.dto.response.MemberResponseDto;
 import efub.assignment.community.member.repository.MemberRepository;
@@ -28,5 +29,14 @@ public class MemberService {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원을 찾을 수 없습니다."));
         return MemberResponseDto.from(member);
+    }
+
+    // 멤버 닉네임 엡데이트
+    public MemberResponseDto updateMember(Long memberId, NicknameUpdateRequestDto requestDto){
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원을 찾을 수 없습니다."));
+        member.updateNickname(requestDto.getNickname());
+        Member updatedMember = memberRepository.save(member);
+        return MemberResponseDto.from(updatedMember);
     }
 }
