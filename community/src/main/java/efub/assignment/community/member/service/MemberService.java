@@ -3,6 +3,7 @@ package efub.assignment.community.member.service;
 import efub.assignment.community.member.domain.Member;
 import efub.assignment.community.member.dto.request.CreateMemberRequestDto;
 import efub.assignment.community.member.dto.response.CreateMemberResponseDto;
+import efub.assignment.community.member.dto.response.MemberResponseDto;
 import efub.assignment.community.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 public class MemberService {
     private final MemberRepository memberRepository;
 
+    // 멤버 생성
     public CreateMemberResponseDto createMember(CreateMemberRequestDto requestDto){
         if(memberRepository.existsByEmail(requestDto.getEmail())){
             throw new IllegalArgumentException("이미 존재하 email입니다."+requestDto.getEmail());
@@ -19,5 +21,12 @@ public class MemberService {
         Member member = requestDto.toEntity();
         Member savedMember = memberRepository.save(member);
         return CreateMemberResponseDto.from(savedMember);
+    }
+
+    // 멤버 조회
+    public MemberResponseDto getMember(Long memberId){
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원을 찾을 수 없습니다."));
+        return MemberResponseDto.from(member);
     }
 }
