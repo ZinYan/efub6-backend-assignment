@@ -4,14 +4,14 @@ import efub.assignment.community.member.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
 
-@Builder @Getter
-public class MemberResponseDto {
-    private Long memberId;
-    private String studentId;
-    private String university;
-    private String nickname;
-    private String email;
-
+@Builder
+public record MemberResponseDto (
+        Long memberId,
+        String studentId,
+        String university,
+        String nickname,
+        String email
+){
     public static MemberResponseDto from(Member member){
         return MemberResponseDto.builder()
                 .memberId(member.getMemberId())

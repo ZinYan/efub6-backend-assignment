@@ -3,7 +3,7 @@ package efub.assignment.community.member.service;
 import efub.assignment.community.member.domain.Member;
 import efub.assignment.community.member.domain.MemberStatus;
 import efub.assignment.community.member.dto.request.CreateMemberRequestDto;
-import efub.assignment.community.member.dto.request.NicknameUpdateRequestDto;
+import efub.assignment.community.member.dto.request.UpdateMemberNicknameRequestDto;
 import efub.assignment.community.member.dto.response.CreateMemberResponseDto;
 import efub.assignment.community.member.dto.response.MemberResponseDto;
 import efub.assignment.community.member.repository.MemberRepository;
@@ -17,8 +17,8 @@ public class MemberService {
 
     // 멤버 생성
     public CreateMemberResponseDto createMember(CreateMemberRequestDto requestDto){
-        if(memberRepository.existsByEmail(requestDto.getEmail())){
-            throw new IllegalArgumentException("이미 존재하 email입니다."+requestDto.getEmail());
+        if(memberRepository.existsByEmail(requestDto.email())){
+            throw new IllegalArgumentException("이미 존재하 email입니다."+requestDto.email());
         }
         Member member = requestDto.toEntity();
         Member savedMember = memberRepository.save(member);
@@ -33,10 +33,10 @@ public class MemberService {
     }
 
     // 멤버 닉네임 엡데이트
-    public MemberResponseDto updateMember(Long memberId, NicknameUpdateRequestDto requestDto){
+    public MemberResponseDto updateMember(Long memberId, UpdateMemberNicknameRequestDto requestDto){
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원을 찾을 수 없습니다."));
-        member.updateNickname(requestDto.getNickname());
+        member.updateNickname(requestDto.nickname());
         Member updatedMember = memberRepository.save(member);
         return MemberResponseDto.from(updatedMember);
     }
