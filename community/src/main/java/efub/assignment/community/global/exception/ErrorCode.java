@@ -18,6 +18,7 @@ public enum ErrorCode {
 
     // BOARD
     BOARD_NOT_FOUND(404, "해당 id의 게시판이 존재하지 않습니다."),
+    BOARD_MEMBER_MISMATCH(403, "게시판 작성자가 아닙니다."),
 
     // POST
     POST_NOT_FOUND(404, "해당 id의 게시글이 존재하지 않습니다."),
