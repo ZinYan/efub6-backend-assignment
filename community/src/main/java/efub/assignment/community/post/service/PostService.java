@@ -69,10 +69,10 @@ public class PostService {
 
     // 게시글 상세 조회 (조회수 증가 포함)
     public PostResponseDto getPost(Long postId) {
-        // 조회수 증가
-        postRepository.increaseViewCount(postId);
         // 최신 데이터 조회
         Post post = findByPostId(postId);
+        // 조회수 증가
+        postRepository.increaseViewCount(postId);
         return PostResponseDto.from(post);
     }
 
