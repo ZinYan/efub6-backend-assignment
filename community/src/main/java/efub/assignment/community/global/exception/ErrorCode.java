@@ -23,6 +23,8 @@ public enum ErrorCode {
     // POST
     POST_NOT_FOUND(404, "해당 id의 게시글이 존재하지 않습니다."),
     POST_MEMBER_MISMATCH(403, "게시글 작성자가 아닙니다."),
+    POST_LIKE_ALREADY_EXISTS(400, "이미 좋아요를 누른 게시글입니다."),
+    POST_LIKE_NOT_FOUND(404, "해당 게시글 좋아요가 존재하지 않습니다."),
 
     // Comment
     COMMENT_NOT_FOUND(404, "해당 id의 댓글이 존재하지 않습니다."),
