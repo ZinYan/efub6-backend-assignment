@@ -70,7 +70,7 @@ jobs:
             sudo docker stop efub6-community-backend || true
             sudo docker rm efub6-community-backend || true
 
-            sudo pkill -f 'community-0.0.1-SNAPSHOT.jar' || true
+            sudo lsof -ti:8080 | xargs -r sudo kill -9 || true
             
             sudo docker run -d \
               --name efub6-community-backend \
